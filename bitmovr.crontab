@@ -1,0 +1,6 @@
+# 
+
+
+# Cleanup spinner-dir for bitmovr.
+# The 
+*/5 * * * * root find /data/bitmovr/spinner_cache/ -name "*_spinner.gif" -mmin +15 -delete
