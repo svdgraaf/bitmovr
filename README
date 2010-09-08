@@ -1,0 +1,29 @@
+Why?
+---
+Because I needed a tiny webserver which would only accept GET calls, which would show statistics, and which would follow redirects when proxying a call (instead of forwarding the redirect to the client).
+
+Our previous solution was an obscure proxy, written in C, which was no longer maintained. Lua is a lot more readable, and LuaSocket sinks are awesome!
+
+Dependencies
+------------
+
+- Lua 5.x
+- LuaSocket
+- LuaMemcached
+- LuaMD5
+
+I would suggest installing those with luarocks.
+
+Running
+-------
+
+Running is done by:
+# lua bitmovr.lua 0.0.0.0:50000
+
+You can have as much bitmovr instances running as you want, you can have your frontend servers forward the calls to bitmovr, eg in nginx:
+
+location /xyz {
+	proxy_cache plop;
+	proxy_cache_valid 240h; # cache for 10 days
+	proxy_pass http://127.0.0.1:50000;
+}
